@@ -5,7 +5,7 @@ import { TaskController } from '../controllers/TaskController';
 import { ITaskService } from '../interfaces/ITaskService';
 import { authenticatorMiddleware } from '../middleware/authenticator';
 import { validateRequest } from '../middleware/validateRequest';
-import { taskSchema } from '../validators/taskValidator';
+import { taskSchema, taskUpdateSchema } from '../validators/taskValidator';
 
 const router = Router();
 const taskService = container.resolve<ITaskService>('TaskService');
@@ -23,7 +23,7 @@ router.post(
 router.put(
   '/tasks/:taskId',
   authenticatorMiddleware,
-  validateRequest(taskSchema),
+  validateRequest(taskUpdateSchema),
   (req, res) => taskController.updateTask(req, res)
 );
 router.delete('/tasks/:taskId', authenticatorMiddleware, (req, res) =>

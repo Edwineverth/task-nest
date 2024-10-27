@@ -1,0 +1,266 @@
+{
+	"info": {
+		"_postman_id": "f8a2c5e5-1604-4487-8512-35ea69266d9f",
+		"name": "task-nest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10763632"
+	},
+	"item": [
+		{
+			"name": "create-user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\":\"edwin012213@gmail.com\",\n    \"password\":\"nomx1231@\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/users",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create-task",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token_api}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"prueba 1\",\n    \"description\": \"esto es una prueba\",\n    \"userId\": \"55d5f47f-fd72-4fdd-9f9b-83d62ed6c42c\",\n    \"completed\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/tasks",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"tasks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-tasks",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token_api}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/api/tasks",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"tasks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update-task",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token_api}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"prueba 1\",\n    \"description\": \"esto es una prueba\",\n    \"completed\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/tasks/:taskId",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"tasks",
+						":taskId"
+					],
+					"variable": [
+						{
+							"key": "taskId",
+							"value": "2Kylq0x6xsjZQ6ElmrSL"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "auth-user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Verifica si la respuesta tiene el parámetro 'token'",
+							"if (pm.response.code === 200) {",
+							"    const responseBody = pm.response.json();",
+							"    const token = responseBody.token;",
+							"",
+							"    if (token) {",
+							"        // Guarda el valor del token en la variable de entorno 'token_api'",
+							"        pm.environment.set('token_api', token);",
+							"        console.log('Token guardado en la variable de entorno token_api:', token);",
+							"    } else {",
+							"        console.log('No se encontró el parámetro token en la respuesta.');",
+							"    }",
+							"} else {",
+							"    console.log('La solicitud no fue exitosa. Código de estado:', pm.response.code);",
+							"}",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"edwin123@gmail.com\",\n    \"password\": \"edwin123@@\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/login",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token_api}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/api//users/:email",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"",
+						"users",
+						":email"
+					],
+					"variable": [
+						{
+							"key": "email",
+							"value": "edwin011@gmail.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-task",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
